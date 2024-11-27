@@ -217,7 +217,7 @@ class _RegisterState extends State<Register> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text("All fields are required."),
-          backgroundColor: Colors.red,
+          backgroundColor: Color.fromARGB(159, 10, 174, 49),
         ),
       );
       return;
@@ -231,7 +231,7 @@ class _RegisterState extends State<Register> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text("Registration Successful! Welcome, $email."),
-            backgroundColor: Colors.green,
+            backgroundColor: Color.fromRGBO(00, 00, 00, 0.8),
           ),
         );
 
@@ -246,7 +246,7 @@ class _RegisterState extends State<Register> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text("Error: ${e.toString()}"),
-          backgroundColor: Colors.red,
+          backgroundColor: Color.fromARGB(159, 10, 174, 49),
         ),
       );
     }
