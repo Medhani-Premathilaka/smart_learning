@@ -230,7 +230,7 @@ class _LoginState extends State<Login> {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text("Email and Password cannot be empty."),
-          backgroundColor: Color.fromARGB(255, 12, 37, 18),
+          backgroundColor: Color.fromARGB(159, 10, 174, 49),
         ),
       );
       return;
@@ -245,7 +245,7 @@ class _LoginState extends State<Login> {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text("Successfully Logged in! Welcome!"),
-            backgroundColor: Color.fromRGBO(33, 236, 46, 0.788),
+            backgroundColor: Color.fromRGBO(00, 00, 00, 0.0),
           ),
         );
 
@@ -257,7 +257,7 @@ class _LoginState extends State<Login> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text("Error: ${e.toString()}"),
-          backgroundColor: const Color.fromARGB(255, 168, 39, 29),
+          backgroundColor: const Color.fromARGB(159, 10, 174, 49),
         ),
       );
     } finally {
