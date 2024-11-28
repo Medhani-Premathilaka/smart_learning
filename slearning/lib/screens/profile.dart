@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:slearning/screens/fav.dart';
 import 'package:slearning/screens/home.dart';
 import 'package:slearning/screens/login.dart';
@@ -65,11 +67,18 @@ class _ProfileState extends State<Profile> {
     }
   }
 
+  
+
   Future<void> _signOut() async {
     try {
       // Sign out from Firebase
       await FirebaseAuth.instance.signOut();
-
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Successfully logged out!"),
+          backgroundColor: Color.fromRGBO(00, 00, 00, 0.6),
+        ),
+      );
       // Add a small delay before navigating to the next screen
       // This ensures the sign-out is completed properly before the navigation
       //await Future.delayed(Duration(seconds: 0));
@@ -91,7 +100,31 @@ class _ProfileState extends State<Profile> {
       );
     }
   }
-
+  Future<void> _dialogBuilder(BuildContext context) {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text("title"),
+            content: Text("data"),
+            actions: [
+              TextButton(
+                  onPressed: _signOut,
+                  child: Text("Disable"),
+                  style: TextButton.styleFrom(
+                      textStyle: Theme.of(context).textTheme.labelLarge)),
+              TextButton(
+                  onPressed: () {
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) => Login()));
+                  },
+                  child: Text("Enaable"),
+                  style: TextButton.styleFrom(
+                      textStyle: Theme.of(context).textTheme.labelLarge)),
+            ],
+          );
+        });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -126,53 +159,7 @@ class _ProfileState extends State<Profile> {
                   ),
                 ),
               ),
-              // Positioned(
-              //   top: 80,
-              //   right: 16,
-              //   child: ElevatedButton.icon(
-              //     onPressed: _signOut,
-              //     style: ElevatedButton.styleFrom(
-              //       backgroundColor: Colors.green,
-              //       shape: RoundedRectangleBorder(
-              //         borderRadius: BorderRadius.circular(30),
-              //       ),
-              //       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              //     ),
-              //     icon: Icon(
-              //       Icons.logout,
-              //       color: Colors.white,
-              //     ),
-              //     label: Text(
-              //       "Sign Out",
-              //       style: TextStyle(
-              //         color: Colors.white,
-              //         fontSize: 14,
-              //         fontWeight: FontWeight.bold,
-              //       ),
-              //     ),
-              //   ),
-              // ),
-              // Positioned(
-              //   bottom: 60,
-              //   left: 20,
-              //   right: 20,
-              //   child: ElevatedButton(
-              //     onPressed: _signOut, // Sign-out button
-              //     child: Text("Sign Out"),
-              //   ),
-              // ),
 
-              // Positioned(
-              //   top: 50,
-              //   left: 20,
-              //   child: Text(
-              //     "  ${FirebaseAuth.instance.currentUser?.email ?? "User"}", // Display user's email
-              //     style: TextStyle(
-              //       fontSize: 22,
-              //       fontWeight: FontWeight.bold,
-              //     ),
-              //   ),
-              // ),
               // Feedback form or other content goes here
 
               SingleChildScrollView(
@@ -275,7 +262,7 @@ class _ProfileState extends State<Profile> {
                 right: 50,
                 left: 50,
                 child: ElevatedButton(
-                  onPressed: _signOut,
+                  onPressed: () => _dialogBuilder,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color.fromARGB(135, 0, 0, 0),
                     shape: RoundedRectangleBorder(
@@ -293,6 +280,7 @@ class _ProfileState extends State<Profile> {
                   ),
                 ),
               ),
+
               Positioned(
                 bottom: 5,
                 left: MediaQuery.of(context).size.width / 2 - 190,

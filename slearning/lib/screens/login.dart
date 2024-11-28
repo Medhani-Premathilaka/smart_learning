@@ -201,7 +201,7 @@ class _LoginState extends State<Login> {
                       fontWeight: FontWeight.bold,
                     ),
                     children: [
-                      const TextSpan(text: "Sign Up with "),
+                      const TextSpan(text: "SIGN UP WITH "),
                       WidgetSpan(
                         alignment: PlaceholderAlignment.middle,
                         child: Image.asset(
@@ -245,7 +245,7 @@ class _LoginState extends State<Login> {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text("Successfully Logged in! Welcome!"),
-            backgroundColor: Color.fromRGBO(00, 00, 00, 0.8),
+            backgroundColor: Color.fromRGBO(00, 00, 00, 0.6),
           ),
         );
 

@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      initialRoute: '/login', // Initial route
+      initialRoute: '/profile', // Initial route
       routes: {
         '/slashscreen': (context) => SlashScreen(),
         '/register': (context) => Register(),
