@@ -56,35 +56,34 @@ class FirebaseAuthServices {
   //   }
   // }
   Future<User?> signInWithEmailAndPassword(
-      String email, String password) async {
-    try {
-      // Sign in user with email and password
-      UserCredential credential = await _auth.signInWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
+    String email, String password) async {
+  try {
+    // Sign in user with email and password
+    UserCredential credential = await FirebaseAuth.instance
+        .signInWithEmailAndPassword(email: email, password: password);
 
-      // Reload user to ensure emailVerified status is up-to-date
-      await credential.user?.reload(); // Refresh user data
-      User? user = FirebaseAuth.instance.currentUser;
+    // Reload user to ensure emailVerified status is up-to-date
+    await credential.user?.reload(); // Refresh user data
+    User? user = FirebaseAuth.instance.currentUser;
 
-      // Check if email is verified after reload
-      if (user != null && !user.emailVerified) {
-        debugPrint("Email not verified for user: ${user.email}");
-        throw Exception("Email not verified. Please check your inbox.");
-      }
-
-      debugPrint("Sign-in successful for user: ${user?.email}");
-      return user; // Return the user after successful sign-in and verification check
-    } on FirebaseAuthException catch (e) {
-      // Handle Firebase-specific errors
-      _handleAuthException(e);
-      return null;
-    } catch (e) {
-      debugPrint("Sign-in error: ${e.toString()}");
-      throw Exception("An unexpected error occurred during sign-in.");
+    // Check if email is verified after reload
+    if (user != null && !user.emailVerified) {
+      debugPrint("Email not verified for user: ${user.email}");
+      throw Exception("Email not verified. Please check your inbox.");
     }
+
+    debugPrint("Sign-in successful for user: ${user?.email}");
+    return user; // Return the user after successful sign-in and verification check
+  } on FirebaseAuthException catch (e) {
+    // Handle Firebase-specific errors
+    _handleAuthException(e);
+    return null;
+  } catch (e) {
+    debugPrint("Sign-in error: ${e.toString()}");
+    throw Exception("An unexpected error occurred during sign-in.");
   }
+}
+
 
   // Sign out
   // Future<void> signOut() async {
