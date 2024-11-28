@@ -126,60 +126,55 @@ class _ProfileState extends State<Profile> {
                   ),
                 ),
               ),
-              Positioned(
-                top: 80,
-                right: 16,
-                child: ElevatedButton.icon(
-                  onPressed: () async {
-                    await _signOut();
-                    // Navigator.pushReplacement(
-                    //   context,
-                    //   MaterialPageRoute(builder: (context) => Register()),
-                    // );
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.green,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  ),
-                  icon: Icon(
-                    Icons.logout,
-                    color: Colors.white,
-                  ),
-                  label: Text(
-                    "Sign Out",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                top: 50,
-                left: 20,
-                child: Text(
-                  "  ${FirebaseAuth.instance.currentUser?.email ?? "User"}", // Display user's email
-                  style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
+              // Positioned(
+              //   top: 80,
+              //   right: 16,
+              //   child: ElevatedButton.icon(
+              //     onPressed: _signOut,
+              //     style: ElevatedButton.styleFrom(
+              //       backgroundColor: Colors.green,
+              //       shape: RoundedRectangleBorder(
+              //         borderRadius: BorderRadius.circular(30),
+              //       ),
+              //       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              //     ),
+              //     icon: Icon(
+              //       Icons.logout,
+              //       color: Colors.white,
+              //     ),
+              //     label: Text(
+              //       "Sign Out",
+              //       style: TextStyle(
+              //         color: Colors.white,
+              //         fontSize: 14,
+              //         fontWeight: FontWeight.bold,
+              //       ),
+              //     ),
+              //   ),
+              // ),
+              // Positioned(
+              //   bottom: 60,
+              //   left: 20,
+              //   right: 20,
+              //   child: ElevatedButton(
+              //     onPressed: _signOut, // Sign-out button
+              //     child: Text("Sign Out"),
+              //   ),
+              // ),
+
+              // Positioned(
+              //   top: 50,
+              //   left: 20,
+              //   child: Text(
+              //     "  ${FirebaseAuth.instance.currentUser?.email ?? "User"}", // Display user's email
+              //     style: TextStyle(
+              //       fontSize: 22,
+              //       fontWeight: FontWeight.bold,
+              //     ),
+              //   ),
+              // ),
               // Feedback form or other content goes here
 
-              Positioned(
-                bottom: 20,
-                left: 20,
-                right: 20,
-                child: ElevatedButton(
-                  onPressed: _signOut, // Sign-out button
-                  child: Text("Sign Out"),
-                ),
-              ),
               SingleChildScrollView(
                 child: Column(
                   children: [
@@ -198,7 +193,7 @@ class _ProfileState extends State<Profile> {
                           ),
                           SizedBox(height: 8),
                           Text(
-                            "Olivia Grace",
+                            "  ${FirebaseAuth.instance.currentUser?.email ?? "User"}",
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
@@ -211,14 +206,14 @@ class _ProfileState extends State<Profile> {
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
-                              color: Colors.red,
+                              color: const Color.fromARGB(135, 0, 0, 0),
                             ),
                           ),
                           SizedBox(height: 16),
                         ],
                       ),
                     ),
-                    SizedBox(height: 80),
+                    SizedBox(height: 10),
                     Text(
                       "Feedback",
                       style: TextStyle(
@@ -253,8 +248,9 @@ class _ProfileState extends State<Profile> {
                 ),
               ),
               Positioned(
-                bottom: 60,
-                right: 16,
+                bottom: 120,
+                right: 50,
+                left: 50,
                 child: ElevatedButton(
                   onPressed: _submitFeedback,
                   style: ElevatedButton.styleFrom(
@@ -266,6 +262,29 @@ class _ProfileState extends State<Profile> {
                   ),
                   child: Text(
                     "SUBMIT",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+              Positioned(
+                bottom: 60,
+                right: 50,
+                left: 50,
+                child: ElevatedButton(
+                  onPressed: _signOut,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color.fromARGB(135, 0, 0, 0),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 30, vertical: 12),
+                  ),
+                  child: Text(
+                    "SIGN OUT",
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 16,
@@ -302,14 +321,14 @@ class _ProfileState extends State<Profile> {
                               MaterialPageRoute(
                                   builder: (context) => HomePage()));
                         },
-                        icon: Icon(Icons.home, color: Colors.black),
+                        icon: const Icon(Icons.home, color: Colors.black),
                       ),
                       IconButton(
                         onPressed: () {
                           Navigator.pushReplacement(context,
                               MaterialPageRoute(builder: (context) => Fav()));
                         },
-                        icon: Icon(Icons.star, color: Colors.black),
+                        icon: const Icon(Icons.star, color: Colors.black),
                       ),
                       IconButton(
                         onPressed: () {
@@ -318,7 +337,8 @@ class _ProfileState extends State<Profile> {
                               MaterialPageRoute(
                                   builder: (context) => Notice()));
                         },
-                        icon: Icon(Icons.notifications, color: Colors.black),
+                        icon: const Icon(Icons.notifications,
+                            color: Colors.black),
                       ),
                       IconButton(
                         onPressed: () {
@@ -327,7 +347,7 @@ class _ProfileState extends State<Profile> {
                               MaterialPageRoute(
                                   builder: (context) => Profile()));
                         },
-                        icon: Icon(Icons.person, color: Colors.black),
+                        icon: const Icon(Icons.person, color: Colors.green),
                       ),
                     ],
                   ),

@@ -16,11 +16,8 @@ void main() async {
   // Initialize Firebase
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await FirebaseAppCheck.instance.activate(
-    
     webProvider: ReCaptchaV3Provider('recaptcha-v3-site-key'),
-    
     androidProvider: AndroidProvider.debug,
-      
     appleProvider: AppleProvider.appAttest,
   );
   // Activate Firebase App Check (Android/iOS and web)
@@ -47,7 +44,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      initialRoute: '/register', // Initial route
+      initialRoute: '/profile', // Initial route
       routes: {
         '/splashScreen': (context) => SplashScreen(),
         '/register': (context) => Register(),
