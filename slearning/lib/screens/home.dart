@@ -52,7 +52,8 @@ class _HomePageState extends State<HomePage> {
             // Scrollable Content
             SingleChildScrollView(
               child: Container(
-                height: MediaQuery.of(context).size.height + 100, // Adjust content height dynamically
+                height: MediaQuery.of(context).size.height +
+                    100, // Adjust content height dynamically
                 child: Stack(
                   children: [
                     // Decorative Circles
@@ -85,7 +86,7 @@ class _HomePageState extends State<HomePage> {
                       top: 50,
                       left: 26,
                       child: Text(
-                        "Hi, $username", // Display fetched username
+                        "Hi, ${FirebaseAuth.instance.currentUser?.email ?? "User"}", // Display fetched username
                         style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -93,6 +94,17 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                     ),
+                    //       Positioned(
+                    //   top: 50,
+                    //   left: 20,
+                    //   child: Text(
+                    //      // Display user's email
+                    //     style: TextStyle(
+                    //       fontSize: 22,
+                    //       fontWeight: FontWeight.bold,
+                    //     ),
+                    //   ),
+                    // ),
                     // Skills Section
                     _buildSkillsSection(),
                   ],
@@ -151,7 +163,7 @@ class _HomePageState extends State<HomePage> {
               _buildSkillBox("JS"),
             ],
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 36),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -160,7 +172,7 @@ class _HomePageState extends State<HomePage> {
               _buildSkillBox("R"),
             ],
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 36),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -169,7 +181,25 @@ class _HomePageState extends State<HomePage> {
               _buildSkillBox("Firebase"),
             ],
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 36),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              _buildSkillBox("Dart"),
+              _buildSkillBox("Flutter"),
+              _buildSkillBox("Kotlin"),
+            ],
+          ),
+          const SizedBox(height: 36),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              _buildSkillBox("MySQL"),
+              _buildSkillBox("MongoDB"),
+              _buildSkillBox("Firebase"),
+            ],
+          ),
+          const SizedBox(height: 36),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

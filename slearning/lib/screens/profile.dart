@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:slearning/screens/fav.dart';
 import 'package:slearning/screens/home.dart';
+import 'package:slearning/screens/login.dart';
 import 'package:slearning/screens/notice.dart';
 import 'package:slearning/screens/register.dart';
 import 'package:slearning/services/firebaseAuthServices.dart';
@@ -64,6 +65,33 @@ class _ProfileState extends State<Profile> {
     }
   }
 
+  Future<void> _signOut() async {
+    try {
+      // Sign out from Firebase
+      await FirebaseAuth.instance.signOut();
+
+      // Add a small delay before navigating to the next screen
+      // This ensures the sign-out is completed properly before the navigation
+      //await Future.delayed(Duration(seconds: 0));
+
+      // Navigate to the Login screen (or Register if you prefer)
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Login(), // Redirect to the Login screen
+        ),
+      );
+    } catch (e) {
+      // If there's an error, show a Snackbar with the error message
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Error signing out: $e"),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -99,15 +127,15 @@ class _ProfileState extends State<Profile> {
                 ),
               ),
               Positioned(
-                top: 56,
+                top: 80,
                 right: 16,
                 child: ElevatedButton.icon(
                   onPressed: () async {
-                    await _auth.signOut();
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (context) => Register()),
-                    );
+                    await _signOut();
+                    // Navigator.pushReplacement(
+                    //   context,
+                    //   MaterialPageRoute(builder: (context) => Register()),
+                    // );
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.green,
@@ -128,6 +156,28 @@ class _ProfileState extends State<Profile> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
+                ),
+              ),
+              Positioned(
+                top: 50,
+                left: 20,
+                child: Text(
+                  "  ${FirebaseAuth.instance.currentUser?.email ?? "User"}", // Display user's email
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              // Feedback form or other content goes here
+
+              Positioned(
+                bottom: 20,
+                left: 20,
+                right: 20,
+                child: ElevatedButton(
+                  onPressed: _signOut, // Sign-out button
+                  child: Text("Sign Out"),
                 ),
               ),
               SingleChildScrollView(

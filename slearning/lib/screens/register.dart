@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:slearning/screens/home.dart';
 import 'package:slearning/screens/login.dart';
 import 'package:slearning/services/FirebaseAuthServices.dart';
 
@@ -220,7 +221,7 @@ class _RegisterState extends State<Register> {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text("All fields are required."),
-          backgroundColor:  Color.fromARGB(159, 10, 174, 49),,
+          backgroundColor: Color.fromARGB(159, 10, 174, 49),
         ),
       );
       return;
@@ -234,21 +235,21 @@ class _RegisterState extends State<Register> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text("Registration Successful! Welcome, $email."),
-            backgroundColor:  Color.fromRGBO(00, 00, 00, 0.0),
+            backgroundColor: Color.fromRGBO(00, 00, 00, 0.0),
           ),
         );
 
         // Navigate to Home Page
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => Login()),
+          MaterialPageRoute(builder: (context) => HomePage()),
         );
       }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text("Error: ${e.toString()}"),
-          backgroundColor:  Color.fromARGB(159, 10, 174, 49),,
+          backgroundColor: Color.fromARGB(159, 10, 174, 49),
         ),
       );
     }

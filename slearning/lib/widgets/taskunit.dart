@@ -23,16 +23,15 @@ class TaskUnit extends StatelessWidget {
       children: [
         // Circle with title
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 19,vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 19, vertical: 10),
           child: Column(
-            
             children: [
               Container(
                 width: 93,
                 height: 93,
                 decoration: BoxDecoration(
-          color: circleColor,
-          borderRadius: BorderRadius.circular(30), 
+                  color: circleColor,
+                  borderRadius: BorderRadius.circular(30),
                 ),
                 child: Center(
                   child: Text(
@@ -41,7 +40,7 @@ class TaskUnit extends StatelessWidget {
                       color: Colors.white,
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
-                     // textAlign: TextAlign.center,
+                      // textAlign: TextAlign.center,
                     ),
                   ),
                 ),
@@ -53,7 +52,7 @@ class TaskUnit extends StatelessWidget {
 
         // Task details (dates and status)
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: 30,horizontal: 0),
+          padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 0),
           child: Expanded(
             child: Container(
               width: 200,
@@ -82,14 +81,15 @@ class TaskUnit extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                         color: Colors.black,
                       ),
-                      
                     ),
                   Text(
-                    isInProgress ? 'IN PROGRESS' :'DONE' ,
+                    isInProgress ? 'IN PROGRESS' : 'DONE',
                     style: TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.bold,
-                      color: isInProgress ? Colors.red : Colors.green,
+                      color: isInProgress
+                          ? const Color.fromARGB(119, 0, 0, 0)
+                          : Colors.green,
                     ),
                   ),
                 ],
@@ -100,6 +100,7 @@ class TaskUnit extends StatelessWidget {
       ],
     );
   }
+
   Widget _buildSkillBox(String skill) {
     return Container(
       width: 93, // Adjusted size
@@ -120,7 +121,5 @@ class TaskUnit extends StatelessWidget {
         ),
       ),
     );
-
-    
   }
 }

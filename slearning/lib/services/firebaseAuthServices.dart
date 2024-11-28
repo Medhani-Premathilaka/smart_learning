@@ -7,80 +7,89 @@ class FirebaseAuthServices {
   // Sign up with email and password
   Future<User?> signUpWithEmailAndPassword(String email, String password) async {
     try {
+      // Create user with email and password
       UserCredential credential = await _auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
 
-      // Optional: Send email verification
+      // Send email verification after successful registration
       await credential.user?.sendEmailVerification();
+      debugPrint("Email verification sent to: ${credential.user?.email}");
 
       return credential.user;
     } on FirebaseAuthException catch (e) {
-      _handleAuthException(e); // Handle Firebase-specific errors
+      // Handle Firebase-specific errors
+      _handleAuthException(e);
       return null;
     } catch (e) {
       debugPrint("Sign-up error: ${e.toString()}");
-      rethrow;
+      throw Exception("An unexpected error occurred during sign-up.");
     }
   }
 
   // Sign in with email and password
   Future<User?> signInWithEmailAndPassword(String email, String password) async {
     try {
+      // Sign in user with email and password
       UserCredential credential = await _auth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
 
+      // Check if email is verified
       if (!credential.user!.emailVerified) {
         debugPrint("Email not verified for user: ${credential.user!.email}");
-        // Notify user about verification
         throw Exception("Email not verified. Please check your inbox.");
       }
 
+      debugPrint("Sign-in successful for user: ${credential.user?.email}");
       return credential.user;
     } on FirebaseAuthException catch (e) {
-      _handleAuthException(e); // Handle Firebase-specific errors
+      // Handle Firebase-specific errors
+      _handleAuthException(e);
       return null;
     } catch (e) {
       debugPrint("Sign-in error: ${e.toString()}");
-      rethrow;
+      throw Exception("An unexpected error occurred during sign-in.");
     }
   }
 
   // Sign out
-  Future<void> signOut() async {
-    try {
-      await _auth.signOut();
-      debugPrint("User signed out successfully.");
-    } catch (e) {
-      debugPrint("Sign-out error: ${e.toString()}");
-      throw Exception("Failed to sign out.");
-    }
-  }
+  // Future<void> signOut() async {
+  //   try {
+  //     await _auth.signOut();
+  //     debugPrint("User signed out successfully.");
+  //   } catch (e) {
+  //     debugPrint("Sign-out error: ${e.toString()}");
+  //     throw Exception("Failed to sign out.");
+  //   }
+  // }
+  
 
   // Handle Firebase-specific authentication errors
   void _handleAuthException(FirebaseAuthException e) {
+    String errorMessage;
     switch (e.code) {
       case 'user-not-found':
-        debugPrint("Error: No user found for the provided email.");
-        throw Exception("No user found for the provided email.");
+        errorMessage = "No user found for the provided email.";
+        break;
       case 'wrong-password':
-        debugPrint("Error: Incorrect password.");
-        throw Exception("Incorrect password.");
+        errorMessage = "Incorrect password.";
+        break;
       case 'email-already-in-use':
-        debugPrint("Error: The email is already in use.");
-        throw Exception("The email is already in use.");
+        errorMessage = "The email is already in use.";
+        break;
       case 'weak-password':
-        debugPrint("Error: The password is too weak.");
-        throw Exception("The password is too weak.");
+        errorMessage = "The password is too weak.";
+        break;
       case 'invalid-email':
-        debugPrint("Error: Invalid email address.");
-        throw Exception("Invalid email address.");
+        errorMessage = "Invalid email address.";
+        break;
       default:
-        debugPrint("Unhandled FirebaseAuthException: ${e.message}");
-        throw Exception(e.message);
+        errorMessage = e.message ?? "An unknown error occurred.";
     }
+    debugPrint("FirebaseAuthException: $errorMessage");
+    throw Exception(errorMessage);
   }
 }

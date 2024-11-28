@@ -15,7 +15,14 @@ void main() async {
 
   // Initialize Firebase
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-
+  await FirebaseAppCheck.instance.activate(
+    
+    webProvider: ReCaptchaV3Provider('recaptcha-v3-site-key'),
+    
+    androidProvider: AndroidProvider.debug,
+      
+    appleProvider: AppleProvider.appAttest,
+  );
   // Activate Firebase App Check (Android/iOS and web)
   try {
     await FirebaseAppCheck.instance.activate(

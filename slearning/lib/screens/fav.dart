@@ -1,17 +1,54 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:slearning/screens/home.dart';
 import 'package:slearning/screens/notice.dart';
 import 'package:slearning/screens/profile.dart';
 import 'package:slearning/widgets/taskunit.dart';
 
-class Fav extends StatelessWidget {
+class Fav extends StatefulWidget {
   const Fav({super.key});
+
+  @override
+  State<Fav> createState() => _FavState();
+}
+
+class _FavState extends State<Fav> {
+  String username = "User"; // Default value for username
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchUserData(); // Fetch user data on initialization
+  }
+
+  // Method to fetch username from Firestore
+  Future<void> _fetchUserData() async {
+    try {
+      User? user = _auth.currentUser; // Get the current user
+      if (user != null) {
+        // Fetch user data from Firestore
+        DocumentSnapshot userDoc = await FirebaseFirestore.instance
+            .collection('users') // Assuming your collection name is 'users'
+            .doc(user.uid) // Fetch document by UID
+            .get();
+
+        if (userDoc.exists && userDoc.data() != null) {
+          setState(() {
+            username = userDoc['username'] ?? "User"; // Get username field
+          });
+        }
+      }
+    } catch (e) {
+      print("Error fetching user data: $e"); // Debug log for errors
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      
       body: SafeArea(
           child: Stack(
         children: [
@@ -47,11 +84,11 @@ class Fav extends StatelessWidget {
                     ),
                   ),
                   // Title
-                  const Positioned(
+                  Positioned(
                     top: 50,
                     left: 26,
                     child: Text(
-                      "Your Choices",
+                      " Choices,${FirebaseAuth.instance.currentUser?.email ?? "User"}",
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -124,7 +161,7 @@ class Fav extends StatelessWidget {
                           isInProgress: true, // In progress task
                           circleColor: Colors.green,
                         ),
-                        
+
                         const SizedBox(height: 20),
                         const TaskUnit(
                           title: "React.JS",
@@ -133,8 +170,7 @@ class Fav extends StatelessWidget {
                           isInProgress: true,
                           circleColor: Colors.green,
                         ),
-                      
-                        
+
                         const SizedBox(height: 20),
                         const TaskUnit(
                           title: "Python",
@@ -146,20 +182,18 @@ class Fav extends StatelessWidget {
                         TaskUnit(
                           title: "HTML",
                           startDate: "2024.05.06",
-                          isInProgress: false, 
-                          endDate: "2024.05.06",// In progress task
+                          isInProgress: false,
+                          endDate: "2024.05.06", // In progress task
                           circleColor: Colors.green.withOpacity(0.75),
                         ),
                         //SizedBox(height: 20),
-                        
-                        
+
                         SizedBox(height: 20),
                         TaskUnit(
                           title: "Python",
                           startDate: "2024.05.06",
                           isInProgress: false, // In progress task
-                          circleColor: Colors.green.withOpacity(0.75
-                          ),
+                          circleColor: Colors.green.withOpacity(0.75),
                         ),
                         SizedBox(height: 20),
                         TaskUnit(
@@ -173,7 +207,6 @@ class Fav extends StatelessWidget {
                     ),
                   ),
                   // Pagination Dots
-                  
                 ],
               ),
             ),
@@ -181,7 +214,8 @@ class Fav extends StatelessWidget {
           // Floating Footer Section
           Positioned(
             bottom: 5,
-            left: MediaQuery.of(context).size.width / 2 - 190, // Center horizontally
+            left: MediaQuery.of(context).size.width / 2 -
+                190, // Center horizontally
             child: Container(
               width: 380, // Set width to 380
               height: 45, // Set height to 45
@@ -268,7 +302,8 @@ class Fav extends StatelessWidget {
       width: 93, // Adjusted size
       height: 93, // Adjusted size
       decoration: BoxDecoration(
-        color: Color(0xFF54D149).withOpacity(0.68), // Updated color with opacity
+        color:
+            Color(0xFF54D149).withOpacity(0.68), // Updated color with opacity
         borderRadius: BorderRadius.circular(30), // Rounded corners
       ),
       child: Center(
