@@ -205,7 +205,7 @@ class _LoginState extends State<Login> {
             left: 40,
             right: 40,
             child: ElevatedButton(
-              onPressed: _signIn,
+              onPressed: _signin,
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.green,
                 shape: RoundedRectangleBorder(
@@ -273,46 +273,46 @@ class _LoginState extends State<Login> {
   }
 
   // Login Method
-  // void _signin() async {
-  //   String email = _emailController.text.trim();
-  //   String password = _passwordController.text.trim();
+  void _signin() async {
+    String email = _emailController.text.trim();
+    String password = _passwordController.text.trim();
 
-  //   if (email.isEmpty || password.isEmpty) {
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       const SnackBar(
-  //         content: Text("Email and Password cannot be empty."),
-  //         backgroundColor: Color.fromARGB(159, 10, 174, 49),
-  //       ),
-  //     );
-  //     return;
-  //   }
+    if (email.isEmpty || password.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Email and Password cannot be empty."),
+          backgroundColor: Color.fromARGB(159, 10, 174, 49),
+        ),
+      );
+      return;
+    }
 
-  //   //setState(() => _isLoading = false);
+    //setState(() => _isLoading = false);
 
-  //   try {
-  //     User? user = await _auth.signInWithEmailAndPassword(email, password);
+    try {
+      User? user = await _auth.signInWithEmailAndPassword(email, password);
 
-  //     if (user != null) {
-  //       ScaffoldMessenger.of(context).showSnackBar(
-  //         const SnackBar(
-  //           content: Text("Successfully Logged in! Welcome!"),
-  //           backgroundColor: Color.fromRGBO(00, 00, 00, 0.8),
-  //         ),
-  //       );
+      if (user != null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("Successfully Logged in! Welcome!"),
+            backgroundColor: Color.fromRGBO(00, 00, 00, 0.8),
+          ),
+        );
 
-  //       // Navigate to Home Page
-  //       Navigator.pushReplacement(
-  //           context, MaterialPageRoute(builder: (context) => HomePage()));
-  //     }
-  //   } catch (e) {
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       SnackBar(
-  //         content: Text("Error: ${e.toString()}"),
-  //         backgroundColor: const Color.fromARGB(159, 10, 174, 49),
-  //       ),
-  //     );
-  //   } finally {
-  //     //setState(() => _isLoading = false);
-  //   }
-  // }
+        // Navigate to Home Page
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => HomePage()));
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Error: ${e.toString()}"),
+          backgroundColor: const Color.fromARGB(159, 10, 174, 49),
+        ),
+      );
+    } finally {
+      //setState(() => _isLoading = false);
+    }
+  }
 }
