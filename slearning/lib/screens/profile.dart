@@ -5,7 +5,7 @@ import 'package:slearning/screens/fav.dart';
 import 'package:slearning/screens/home.dart';
 import 'package:slearning/screens/login.dart';
 import 'package:slearning/screens/notice.dart';
-import 'package:slearning/screens/register.dart';
+//import 'package:slearning/screens/register.dart';
 import 'package:slearning/services/firebaseAuthServices.dart';
 
 class Profile extends StatefulWidget {
@@ -30,7 +30,7 @@ class _ProfileState extends State<Profile> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text("Feedback cannot be empty."),
-          backgroundColor: Colors.red,
+          backgroundColor: Color.fromRGBO(00, 00, 00, 0.6),
         ),
       );
       return;
@@ -51,7 +51,7 @@ class _ProfileState extends State<Profile> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text("Thank you for your valuable feedback!"),
-          backgroundColor: const Color.fromRGBO(0, 0, 0, 0.79),
+          backgroundColor: const Color.fromARGB(159, 10, 174, 49),
         ),
       );
     } catch (e) {
@@ -59,7 +59,7 @@ class _ProfileState extends State<Profile> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text("Error submitting feedback: $e"),
-          backgroundColor: Colors.red,
+          backgroundColor: Color.fromRGBO(0, 0, 0, 0.79),
         ),
       );
     }
@@ -86,7 +86,7 @@ class _ProfileState extends State<Profile> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text("Error signing out: $e"),
-          backgroundColor: Colors.red,
+          backgroundColor: Color.fromRGBO(00, 00, 00, 0.6),
         ),
       );
     }
@@ -256,7 +256,7 @@ class _ProfileState extends State<Profile> {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.green,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
+                      borderRadius: BorderRadius.circular(10),
                     ),
                     padding: EdgeInsets.symmetric(horizontal: 30, vertical: 12),
                   ),
@@ -279,7 +279,7 @@ class _ProfileState extends State<Profile> {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color.fromARGB(135, 0, 0, 0),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
+                      borderRadius: BorderRadius.circular(10),
                     ),
                     padding: EdgeInsets.symmetric(horizontal: 30, vertical: 12),
                   ),

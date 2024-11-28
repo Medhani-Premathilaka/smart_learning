@@ -235,7 +235,7 @@ class _RegisterState extends State<Register> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text("Registration Successful! Welcome, $email."),
-            backgroundColor: Color.fromRGBO(00, 00, 00, 0.0),
+            backgroundColor: Color.fromRGBO(00, 00, 00, 0.6),
           ),
         );
 

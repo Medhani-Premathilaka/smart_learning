@@ -5,7 +5,8 @@ class FirebaseAuthServices {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   // Sign up with email and password
-  Future<User?> signUpWithEmailAndPassword(String email, String password) async {
+  Future<User?> signUpWithEmailAndPassword(
+      String email, String password) async {
     try {
       // Create user with email and password
       UserCredential credential = await _auth.createUserWithEmailAndPassword(
@@ -29,7 +30,33 @@ class FirebaseAuthServices {
   }
 
   // Sign in with email and password
-  Future<User?> signInWithEmailAndPassword(String email, String password) async {
+  // Future<User?> signInWithEmailAndPassword(String email, String password) async {
+  //   try {
+  //     // Sign in user with email and password
+  //     UserCredential credential = await _auth.signInWithEmailAndPassword(
+  //       email: email,
+  //       password: password,
+  //     );
+
+  //     // Check if email is verified
+  //     if (!credential.user!.emailVerified) {
+  //       debugPrint("Email not verified for user: ${credential.user!.email}");
+  //       throw Exception("Email not verified. Please check your inbox.");
+  //     }
+
+  //     debugPrint("Sign-in successful for user: ${credential.user?.email}");
+  //     return credential.user;
+  //   } on FirebaseAuthException catch (e) {
+  //     // Handle Firebase-specific errors
+  //     _handleAuthException(e);
+  //     return null;
+  //   } catch (e) {
+  //     debugPrint("Sign-in error: ${e.toString()}");
+  //     throw Exception("An unexpected error occurred during sign-in.");
+  //   }
+  // }
+  Future<User?> signInWithEmailAndPassword(
+      String email, String password) async {
     try {
       // Sign in user with email and password
       UserCredential credential = await _auth.signInWithEmailAndPassword(
@@ -37,14 +64,18 @@ class FirebaseAuthServices {
         password: password,
       );
 
-      // Check if email is verified
-      if (!credential.user!.emailVerified) {
-        debugPrint("Email not verified for user: ${credential.user!.email}");
+      // Reload user to ensure emailVerified status is up-to-date
+      await credential.user?.reload(); // Refresh user data
+      User? user = FirebaseAuth.instance.currentUser;
+
+      // Check if email is verified after reload
+      if (user != null && !user.emailVerified) {
+        debugPrint("Email not verified for user: ${user.email}");
         throw Exception("Email not verified. Please check your inbox.");
       }
 
-      debugPrint("Sign-in successful for user: ${credential.user?.email}");
-      return credential.user;
+      debugPrint("Sign-in successful for user: ${user?.email}");
+      return user; // Return the user after successful sign-in and verification check
     } on FirebaseAuthException catch (e) {
       // Handle Firebase-specific errors
       _handleAuthException(e);
@@ -65,7 +96,6 @@ class FirebaseAuthServices {
   //     throw Exception("Failed to sign out.");
   //   }
   // }
-  
 
   // Handle Firebase-specific authentication errors
   void _handleAuthException(FirebaseAuthException e) {

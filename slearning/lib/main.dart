@@ -8,7 +8,7 @@ import 'package:slearning/screens/home.dart';
 import 'package:slearning/screens/login.dart';
 import 'package:slearning/screens/profile.dart';
 import 'package:slearning/screens/register.dart';
-import 'package:slearning/screens/splashScreen.dart'; // Import the SplashScreen file
+import 'package:slearning/screens/slashScreen.dart'; // Import the SplashScreen file
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -44,9 +44,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      initialRoute: '/profile', // Initial route
+      initialRoute: '/login', // Initial route
       routes: {
-        '/splashScreen': (context) => SplashScreen(),
+        '/slashscreen': (context) => SlashScreen(),
         '/register': (context) => Register(),
         '/login': (context) => Login(),
         '/home': (context) => HomePage(),

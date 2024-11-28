@@ -103,7 +103,7 @@ class _LoginState extends State<Login> {
                     fontSize: 16,
                   ),
                   decoration: const InputDecoration(
-                    hintText: "Enter your email",
+                    hintText: "Enter  email",
                     hintStyle: TextStyle(
                       color: Color.fromRGBO(0, 0, 0, 0.44),
                       fontSize: 16,
@@ -136,7 +136,7 @@ class _LoginState extends State<Login> {
                     fontSize: 16,
                   ),
                   decoration: const InputDecoration(
-                    hintText: "Enter your password",
+                    hintText: "Enter  password",
                     hintStyle: TextStyle(
                       color: Color.fromRGBO(0, 0, 0, 0.44),
                       fontSize: 16,
