@@ -78,4 +78,5 @@ class FirebaseAuthServices {
     debugPrint("FirebaseAuthException: $errorMessage");
     throw Exception(errorMessage);
   }
+  
 }

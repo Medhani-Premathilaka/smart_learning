@@ -67,8 +67,6 @@ class _ProfileState extends State<Profile> {
     }
   }
 
-  
-
   Future<void> _signOut() async {
     try {
       // Sign out from Firebase
@@ -100,31 +98,58 @@ class _ProfileState extends State<Profile> {
       );
     }
   }
+
   Future<void> _dialogBuilder(BuildContext context) {
     return showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Text("title"),
-            content: Text("data"),
-            actions: [
-              TextButton(
-                  onPressed: _signOut,
-                  child: Text("Disable"),
-                  style: TextButton.styleFrom(
-                      textStyle: Theme.of(context).textTheme.labelLarge)),
-              TextButton(
-                  onPressed: () {
-                    Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) => Login()));
-                  },
-                  child: Text("Enaable"),
-                  style: TextButton.styleFrom(
-                      textStyle: Theme.of(context).textTheme.labelLarge)),
-            ],
-          );
-        });
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text(
+            "Are you sure?",
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+          content: Text("Do you want Sign Out"),
+          actions: [
+            // "Disable" button - calling _signOut() and dismissing dialog
+            TextButton(
+              onPressed: () async {
+                await _signOut();
+                Navigator.of(context)
+                    .pop(); // Dismiss the dialog after sign out
+              },
+              child: Text(
+                "Cancel",
+                style: TextStyle(
+                  color: Colors.green,
+                ),
+              ),
+              style: TextButton.styleFrom(
+                  textStyle: Theme.of(context).textTheme.labelLarge),
+            ),
+            // "Enable" button - navigating to Login screen after closing the dialog
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Dismiss the dialog
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => Login()),
+                );
+              },
+              child: Text(
+                "Sign Out",
+                style: TextStyle(
+                  color: Colors.green,
+                ),
+              ),
+              style: TextButton.styleFrom(
+                  textStyle: Theme.of(context).textTheme.labelLarge),
+            ),
+          ],
+        );
+      },
+    );
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -262,7 +287,9 @@ class _ProfileState extends State<Profile> {
                 right: 50,
                 left: 50,
                 child: ElevatedButton(
-                  onPressed: () => _dialogBuilder,
+                  onPressed: () {
+                    _dialogBuilder(context);
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color.fromARGB(135, 0, 0, 0),
                     shape: RoundedRectangleBorder(
