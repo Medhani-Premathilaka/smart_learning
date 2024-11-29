@@ -1,13 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:slearning/screens/fav.dart';
 import 'package:slearning/screens/home.dart';
 import 'package:slearning/screens/login.dart';
 import 'package:slearning/screens/notice.dart';
-//import 'package:slearning/screens/register.dart';
 import 'package:slearning/services/firebaseAuthServices.dart';
 
 class Profile extends StatefulWidget {
