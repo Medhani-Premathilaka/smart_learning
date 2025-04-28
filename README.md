@@ -4,7 +4,6 @@ A Flutter-based e-learning application powered by Firebase with real-time featur
 
 ## ✨ Features
 - 🔐 Firebase Authentication (Email/Password)
-- 📝 Course enrollment & management
 - ⭐ Rating and feedback system
 - 🔔 Real-time updates
 - 🎨 Responsive Flutter UI
@@ -13,7 +12,8 @@ A Flutter-based e-learning application powered by Firebase with real-time featur
 ## 🛠️ Tech Stack
 - **Frontend**: Flutter (Dart)
 - **Backend**: Firebase (Auth, Firestore, Storage)
-- **Design**: [Figma Prototype](https://lnkd.in/dfNHykcY)
+- **Design**: Figma
+🔗https://lnkd.in/dfNHykcY
 
 ## 🚀 Quick Start
 1. Clone repo:
